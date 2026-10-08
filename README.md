@@ -44,6 +44,12 @@ resuming 20261005-180404-90ec (was: running)
 rollbacks actually executed: 1
 ```
 
+To be the approver yourself (deny the restart with a reason, then approve the rollback):
+
+```bash
+python examples/approval_demo.py
+```
+
 ## Run it for real
 
 ```bash

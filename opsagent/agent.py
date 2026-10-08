@@ -215,7 +215,7 @@ class Agent:
             sp.set(outcome="error" if is_error else "ok")
             if is_error:
                 sp.fail()
-            self.out("    " + text.strip().replace("\n", "\n    ")[:600])
+            self.out(_preview(text))
             return True
 
     async def _decide(self, req: ApprovalRequest) -> Decision:
@@ -237,6 +237,22 @@ def _text(content: list[dict]) -> str:
 
 def _fmt(args: dict) -> str:
     return ", ".join(f"{k}={v!r}" for k, v in args.items())
+
+
+def _preview(text: str, max_lines: int = 8, width: int = 140) -> str:
+    """Console preview of a tool result (the model always gets the full text)."""
+    try:
+        data = json.loads(text)
+    except ValueError:
+        data = None
+    if isinstance(data, dict):
+        lines = [f"{k}: {json.dumps(v, separators=(', ', ': '))}" for k, v in data.items()]
+    else:
+        lines = text.strip().splitlines()
+    shown = [l if len(l) <= width else l[: width - 1] + "…" for l in lines[:max_lines]]
+    if len(lines) > max_lines:
+        shown.append(f"… {len(lines) - max_lines} more lines")
+    return "\n".join("    " + l for l in shown)
 
 
 def _result_block(r: Any) -> dict[str, Any]:
