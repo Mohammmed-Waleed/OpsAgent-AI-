@@ -1,5 +1,7 @@
 # OpsAgent
 
+[![ci](https://github.com/Mohammmed-Waleed/OpsAgent-AI-/actions/workflows/ci.yml/badge.svg)](https://github.com/Mohammmed-Waleed/OpsAgent-AI-/actions/workflows/ci.yml)
+
 An on-call SRE agent built around the parts that make agents safe to run for real:
 
 - **Tool calling** — Claude investigates an incident through tools, not guesses.
